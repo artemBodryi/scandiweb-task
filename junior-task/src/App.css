@@ -1,0 +1,141 @@
+/*_________________PRODUCTS____________________*/
+
+.wrapper {
+  min-width: 805px;
+}
+/* .row {
+  display: flex;
+  flex-direction: row;
+} */
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px auto;
+  max-width: 1180px;
+  align-items: flex-start;
+}
+header h1 {
+  padding-left: 5px;
+}
+header .nav {
+  padding-top: 30px;
+  padding-right: 20px;
+}
+header button {
+    margin-left: 10px;
+}
+
+.product-list {
+  font-size: 15px;
+  justify-content:flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 2px solid grey;
+  border-top: 2px solid grey;
+  max-width: 1200px;
+  align-items: flex-start;
+  margin: 0px auto;
+}
+
+.product {
+  border: 2px solid black;
+  align-items: center;
+  margin: 10px 15px 15px;
+  height: 200px;
+  max-height: 2300px;
+  flex: 1 0 20%;
+  max-width: 260px;
+  min-width: 245.5px;
+}
+
+.product input {
+  align-self: flex-start;
+  margin: 10px;
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  width: 60%;
+  padding: 20px;
+}
+
+footer {
+    text-align: center;
+}
+
+
+/* _________________ADD-PAGE___________________________ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+}
+
+.sku, .name, .price, .type {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.type {
+  width: 185px;
+  min-width: 80px;
+}
+
+.sku, .name, .price {
+  width: 250px;
+  min-width: 200px;
+}
+
+input, select {
+  border: 1px solid black;
+}
+
+.dropdown-form {
+  border: 2px solid black;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  min-height: 100px;
+  max-width: 300px;
+  width: auto;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.dropdown-form span input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+ } 
+.dropdown-form span{
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.dropdown > span {
+  margin-right: 60px;
+}
+.error-message {
+  color: red;
+}
+.nav-error-message {
+  margin-top: 35px;
+}
