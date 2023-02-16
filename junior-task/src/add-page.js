@@ -101,14 +101,14 @@ export class AddProducts extends Component {
         errorMessage: "Please, provide the data of indicated type",
       });
     } else {
-      this.setState({ name: event.target.value, errorMessage: ""  }, () => {
+      this.setState({ name: event.target.value, errorMessage: "" }, () => {
         this.validateForm();
       });
       this.setState({ errorMessage: "" });
     }
     if (event.target.value === "") {
       this.setState({ name: "" });
-  }
+    }
   };
   onPriceChange = (event) => {
     if (isNaN(event.target.value)) {
@@ -138,7 +138,9 @@ export class AddProducts extends Component {
       (this.state.productType === "book" && !this.state.weight.trim()) ||
       (this.state.productType === "DVD" && !this.state.size.trim()) ||
       (this.state.productType === "furniture" &&
-        (!this.state.height.trim() || !this.state.width.trim() || !this.state.length.trim())) ||
+        (!this.state.height.trim() ||
+          !this.state.width.trim() ||
+          !this.state.length.trim())) ||
       this.state.productType === "default"
     ) {
       this.setState({ errorMessage: "Please, submit required data" });
@@ -160,7 +162,11 @@ export class AddProducts extends Component {
         height: this.state.height,
       })
       .then((res) => {
-        console.log(res? 'OK!' : 'KO!');
+        console.log(res ? "OK!" : "KO!");
+        this.props.onAddProduct(res.data); // Call the callback function to update the state of Products
+        if (this.props.history) {
+          this.props.history.push("/");
+        }
       })
       .catch((error) => console.log(error));
 

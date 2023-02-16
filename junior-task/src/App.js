@@ -11,13 +11,19 @@ export default class App extends Component {
     products: []
   }
 
+  handleAddProduct = (newProduct) => {
+    this.setState(prevState => ({
+      products: [...prevState.products, newProduct]
+    }));
+  }
+
   render() {
     return (
       <div className="wrapper">
         <Router>
           <Routes>
             <Route path="/" element={<Products product={this.state.products}/>} />
-            <Route path="/add-page" element={<AddProducts />} />
+            <Route path="/add-page" element={<AddProducts onAddProduct={this.handleAddProduct}/>} />
           </Routes>
         </Router>
 
