@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import withNavigateHook from "./hoc";
 import axios from "axios";
-const FormData = require("form-data");
 
 export class AddProducts extends Component {
   constructor(props) {
@@ -97,16 +96,19 @@ export class AddProducts extends Component {
     );
   };
   onNameChange = (event) => {
-    if (!/^[a-zA-Z_ ]+$/.test(event.target.value)) {
+    if (!/^[a-zA-Z0-9_ ]+$/.test(event.target.value)) {
       this.setState({
         errorMessage: "Please, provide the data of indicated type",
       });
     } else {
-      this.setState({ name: event.target.value }, () => {
+      this.setState({ name: event.target.value, errorMessage: ""  }, () => {
         this.validateForm();
       });
       this.setState({ errorMessage: "" });
     }
+    if (event.target.value === "") {
+      this.setState({ name: "" });
+  }
   };
   onPriceChange = (event) => {
     if (isNaN(event.target.value)) {
@@ -129,42 +131,40 @@ export class AddProducts extends Component {
   //have made axios post for API
   handlePostOnSubmit = (event) => {
     event.preventDefault();
-    // if (this.state.isDuplicateSku) {
-    //   this.setState({ errorMessage: "SKU already exists!" })
-    // } else {
-      if (
-        !this.state.sku ||
-        !this.state.name ||
-        !this.state.price ||
-        (this.state.productType === "book" && !this.state.weight) ||
-        (this.state.productType === "DVD" && !this.state.size) ||
-        (this.state.productType === "furniture" &&
-          (!this.state.height || !this.state.width || !this.state.length)) ||
-        this.state.productType === "default"
-      ) {
-        this.setState({ errorMessage: "Please, submit required data" });
-        return false;
-      } else {
-        this.setState({ errorMessage: "" });
-      }
-      const url = "http://localhost:8080/scandi-api/insert.php";
+    if (
+      !this.state.sku.trim() ||
+      !this.state.name ||
+      !this.state.price.trim() ||
+      (this.state.productType === "book" && !this.state.weight.trim()) ||
+      (this.state.productType === "DVD" && !this.state.size.trim()) ||
+      (this.state.productType === "furniture" &&
+        (!this.state.height.trim() || !this.state.width.trim() || !this.state.length.trim())) ||
+      this.state.productType === "default"
+    ) {
+      this.setState({ errorMessage: "Please, submit required data" });
+      return false;
+    } else {
+      this.setState({ errorMessage: "" });
+    }
+    const url = "http://localhost:8080/scandi-api/insert.php";
 
-      axios
-        .post(url, {
-          sku: this.state.sku,
-          name: this.state.name,
-          price: this.state.price,
-          size: this.state.size,
-          weight: this.state.weight,
-          length: this.state.length,
-          width: this.state.width,
-          height: this.state.height,
-        })
-        .then((res) => console.log(res.data))
-        .catch((error) => console.log(error));
+    axios
+      .post(url, {
+        sku: this.state.sku,
+        name: this.state.name,
+        price: this.state.price,
+        size: this.state.size,
+        weight: this.state.weight,
+        length: this.state.length,
+        width: this.state.width,
+        height: this.state.height,
+      })
+      .then((res) => {
+        console.log(res? 'OK!' : 'KO!');
+      })
+      .catch((error) => console.log(error));
 
-      this.handleToProductList();
-    //}
+    this.handleToProductList();
   };
 
   //navigation to Product-List
@@ -209,7 +209,9 @@ export class AddProducts extends Component {
               name="products_sku"
               required
             />
-            {this.state.isDuplicateSku && <span className="error-message">SKU already exists!</span>}
+            {this.state.isDuplicateSku && (
+              <span className="error-message">SKU already exists!</span>
+            )}
           </div>
           <div className="name">
             <span>Name</span>

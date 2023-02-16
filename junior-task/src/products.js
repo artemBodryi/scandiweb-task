@@ -21,11 +21,11 @@ export class Products extends Component {
         const dbData = res.data;
         this.setState({ dbData });
         //console.log(this.state.dbData);
-        if (this.state.dbData.length === 0) {
-          console.log(`data does not fetched`);
-        } else {
-          console.log(`data has been fetched in dbData`);
-        }
+        // if (this.state.dbData === 0) {
+        //   console.log(`data does not fetched`);
+        // } else {
+        //   console.log(`data has been fetched in dbData`);
+        // }
       })
       .catch((error) => {
         console.log(error);
