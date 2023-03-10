@@ -148,8 +148,8 @@ export class AddProducts extends Component {
     } else {
       this.setState({ errorMessage: "" });
     }
-    const url = "http://localhost:8080/scandi-api/insert.php";
-
+    const url = "https://scandiweb-jun-task.000webhostapp.com/insert.php";
+    
     axios
       .post(url, {
         sku: this.state.sku,
@@ -172,6 +172,7 @@ export class AddProducts extends Component {
 
     this.handleToProductList();
   };
+
 
   //navigation to Product-List
   handleToProductList = () => {

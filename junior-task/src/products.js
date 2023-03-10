@@ -13,19 +13,12 @@ export class Products extends Component {
 
   //creating axios.get request
   componentDidMount() {
-    const url = "http://localhost:8080/scandi-api/get.php";
-
+    const url = "https://scandiweb-jun-task.000webhostapp.com/get.php";
     axios
       .get(url)
       .then((res) => {
         const dbData = res.data;
         this.setState({ dbData });
-        //console.log(this.state.dbData);
-        // if (this.state.dbData === 0) {
-        //   console.log(`data does not fetched`);
-        // } else {
-        //   console.log(`data has been fetched in dbData`);
-        // }
       })
       .catch((error) => {
         console.log(error);
@@ -55,14 +48,17 @@ export class Products extends Component {
 
   //creating axios delete request
   deleteItems = () => {
-    const url = `http://localhost:8080/scandi-api/delete.php`;
+    const url = "https://scandiweb-jun-task.000webhostapp.com/delete.php";
     axios
-      .delete(url, { params: { ids: this.state.ids } })
+      .post(url, { _method: "DELETE", data: { ids: this.state.ids } })
       .then(() => {
+        const updatedDbData = this.state.dbData.filter(
+          (item) => !this.state.ids.includes(item.id)
+        );
+        // console.log("dbData before delete:", this.state.dbData);
+        // console.log("dbData after delete:", updatedDbData);
         this.setState({
-          dbData: this.state.dbData.filter(
-            (item) => !this.state.ids.includes(item.id)
-          ),
+          dbData: updatedDbData
         });
       })
       .catch((error) => {
